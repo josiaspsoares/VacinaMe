@@ -6,7 +6,8 @@ typedef struct Cidadao {
     char email[100];
     long int cpf;
     int idade;
-    char isGrupoDeRisco;
+    char pertenceGrupoDeRisco;
+    char recebeuVacina;
 }Cidadao;
 
 #endif 

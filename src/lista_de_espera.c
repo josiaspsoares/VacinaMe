@@ -16,9 +16,9 @@ TipoLista* criaLista(){
 
 void liberaLista(TipoLista *lista){
     if(lista != NULL){
-        TipoMembroLista* membroAuxiliar;
 
         while(lista->primeiro != NULL){
+            TipoMembroLista* membroAuxiliar;
             membroAuxiliar = lista->primeiro;
             lista->primeiro = lista->primeiro->proximo;
             free(membroAuxiliar);
