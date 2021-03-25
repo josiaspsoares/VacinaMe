@@ -18,9 +18,9 @@ TipoFila *iniciaFila(){
 
 void liberaFila(TipoFila *fila){
     if(fila != NULL){
-        TipoMembroFila *membroAuxiliar;
 
         while(fila->primeiro != NULL){
+            TipoMembroFila *membroAuxiliar;
             membroAuxiliar = fila->primeiro;
             fila->primeiro = fila->primeiro->deTras;
             free(membroAuxiliar);
