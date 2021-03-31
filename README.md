@@ -9,8 +9,8 @@
 > Status: Em desenvolvimento
 
 ## Autores
-<h4>Josias Soares</h4>
-<h4>Gustavo Raposa</h4>
-<h4>Lucas Santos</h4>
-<h4>Matheus Voort</h4>
-<h4>Emanuel Cunha</h4>
+<p>Josias Soares</p>
+<p>Gustavo Raposa</p>
+<p>Lucas Santos</p>
+<p>Matheus Voort</p>
+<p>Emanuel Cunha</p>
