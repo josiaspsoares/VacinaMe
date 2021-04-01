@@ -16,6 +16,7 @@ int main(){
     }
 
     printf("Hello World");
+    lerDados(listaDeEspera, "data/dados_cidadaos.txt");
 
     liberaLista(listaDeEspera);
     liberaFila(filaDeVacinacao);

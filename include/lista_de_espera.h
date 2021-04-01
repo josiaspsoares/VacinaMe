@@ -17,7 +17,8 @@ typedef struct Lista{
 
 TipoLista* criaLista();
 void liberaLista(TipoLista *lista);
-int insereListaFinal(TipoLista *lista);
+int insereListaFinal(TipoLista *lista, Cidadao dadosCidadao);
 int removeListaFinal(TipoLista *lista);
+void lerDados(TipoLista *lista, char *filepath);
 
 #endif 

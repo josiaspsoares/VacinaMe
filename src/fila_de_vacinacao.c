@@ -30,13 +30,16 @@ void liberaFila(TipoFila *fila){
     }
 }
 
-void insereNaFila(TipoFila *fila){
-	TipoMembroFila *novoMembro = (TipoMembroFila *)malloc(sizeof(TipoMembroFila));
+void insereNaFila(TipoFila *fila, Cidadao dadosCidadao)
+{
+    TipoMembroFila *novoMembro = (TipoMembroFila *)malloc(sizeof(TipoMembroFila));
 	if(novoMembro == NULL){
         return;
     }
 
-	if(fila->primeiro == NULL){
+    novoMembro->cidadao = dadosCidadao;
+
+    if(fila->primeiro == NULL){
 		fila->primeiro = novoMembro;
 		novoMembro->daFrente = NULL;
 	}
