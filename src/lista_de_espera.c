@@ -140,12 +140,22 @@ int removeListaFinal(TipoLista *lista)
     }
 }
 
+void exibeLista(TipoLista *lista)
+{
+    TipoMembroLista *membroAuxiliar = lista->primeiro;
+    while (membroAuxiliar != NULL)
+    {
+        printf("\n%d %s %s %s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
+        membroAuxiliar = membroAuxiliar->proximo;
+    }
+}
+
 void lerDados(TipoLista *lista, char *filepath)
 {
     FILE *arquivo;
     int idade;
     char nome[100], cpf[12], email[100];
-    //Cidadao dadosCidadao;
+    Cidadao dadosCidadao;
 
     arquivo = fopen(filepath, "r");
 
@@ -154,15 +164,13 @@ void lerDados(TipoLista *lista, char *filepath)
         fscanf(arquivo, "%d %s %11s %99[^\n]\n", &idade, email, cpf, nome);
         printf("\n%d %s %s %s", idade, nome, cpf, email);
 
-        // dadosCidadao.idade = idade;
-        // strcpy(dadosCidadao.email, email);
-        // strcpy(dadosCidadao.cpf, cpf);
-        // strcpy(dadosCidadao.nome, nome);
-        // insereListaFinal(lista, dadosCidadao);
+        dadosCidadao.idade = idade;
+        strcpy(dadosCidadao.email, email);
+        strcpy(dadosCidadao.cpf, cpf);
+        strcpy(dadosCidadao.nome, nome);
+        insereListaFinal(lista, dadosCidadao);
     }
 
-    // printf("\n%d %s %s %s", lista->primeiro->cidadao.idade, lista->primeiro->cidadao.nome, lista->primeiro->cidadao.cpf, lista->primeiro->cidadao.email);
-    // printf("\n%d %s %s %s", lista->ultimo->cidadao.idade, lista->ultimo->cidadao.nome, lista->ultimo->cidadao.cpf, lista->ultimo->cidadao.email);
-
     fclose(arquivo);
+    exibeLista(lista);
 }
