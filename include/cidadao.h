@@ -1,13 +1,14 @@
 #ifndef CIDADAO_H
 #define CIDADAO_H
 
-typedef struct Cidadao {
+typedef struct  {
     char nome[100];
     char email[100];
     char cpf[12];
     int idade;
-    char pertenceGrupoDeRisco;
-    char recebeuVacina;
+    int codigoVacina;
+    int pertenceGrupoDeRisco;
+    int statusVacina;
 }Cidadao;
 
-#endif 
+#endif

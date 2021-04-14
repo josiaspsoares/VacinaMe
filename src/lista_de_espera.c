@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../include/lista_de_espera.h"
+#define MAX_NOMES 500
 
 TipoLista *criaLista()
 {
@@ -57,6 +58,7 @@ int insereListaInicio(TipoLista *lista, Cidadao dadosCidadao)
     if (listaVazia(lista))
     {
         lista->primeiro = novoMembro;
+        lista->primeiro->anterior = NULL;
         lista->ultimo = novoMembro;
     }
     else
@@ -65,7 +67,7 @@ int insereListaInicio(TipoLista *lista, Cidadao dadosCidadao)
         lista->primeiro->anterior = novoMembro;
         lista->primeiro = novoMembro;
     }
-
+    lista->ultimo->proximo = NULL;
     lista->quantidade++;
     return 1;
 }
@@ -91,6 +93,7 @@ int insereListaFinal(TipoLista *lista, Cidadao dadosCidadao)
         lista->ultimo->proximo = novoMembro;
         novoMembro->anterior = lista->ultimo;
         lista->ultimo = novoMembro;
+        lista->ultimo->proximo = NULL;
         lista->quantidade++;
         return 1;
     }
@@ -140,29 +143,123 @@ int removeListaFinal(TipoLista *lista)
     }
 }
 
+void exibeLista(TipoLista *lista)
+{
+    TipoMembroLista *membroAuxiliar = lista->primeiro;
+    while (membroAuxiliar != NULL)
+    {
+        printf("\n%d %s %s %s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
+        membroAuxiliar = membroAuxiliar->proximo;
+    }
+}
+
 void lerDados(TipoLista *lista, char *filepath)
 {
-    FILE *arquivo;
-    int idade;
-    char nome[100], cpf[12], email[100];
-    //Cidadao dadosCidadao;
+    FILE *fp;
+    int idade, statusVacina, risco, codigoVacina;
+    int i = 0;
+    char nome[100], cpf[13], email[100];
+    Cidadao dadosCidadao;
+    fp = fopen(filepath, "r");
 
-    arquivo = fopen(filepath, "r");
-
-    while (!feof(arquivo))
+    while (!feof(fp))
     {
-        fscanf(arquivo, "%d %s %11s %99[^\n]\n", &idade, email, cpf, nome);
-        printf("\n%d %s %s %s", idade, nome, cpf, email);
-
-        // dadosCidadao.idade = idade;
-        // strcpy(dadosCidadao.email, email);
-        // strcpy(dadosCidadao.cpf, cpf);
-        // strcpy(dadosCidadao.nome, nome);
-        // insereListaFinal(lista, dadosCidadao);
+        fflush(stdin);
+        fscanf(fp, "%d %d %d %d %s %11s %99[^\n]", &risco, &statusVacina, &codigoVacina, &idade, email, cpf, nome);
+        strcpy(dadosCidadao.email, email);
+        strcpy(dadosCidadao.cpf, cpf);
+        strcpy(dadosCidadao.nome, nome);
+        dadosCidadao.idade = idade;
+        dadosCidadao.statusVacina = statusVacina;  /* 0 não tomou vacina, 1 tomou uma dose, 2 está imunizado */
+        dadosCidadao.codigoVacina = codigoVacina;  /* 0 sem nenhum, 1 coronaVac, 2 Pfizer, 3 Jansen */
+        dadosCidadao.pertenceGrupoDeRisco = risco; /* 0 sem risco, 1 com risco */
+        insereListaFinal(lista, dadosCidadao);
+        i++;
     }
 
-    // printf("\n%d %s %s %s", lista->primeiro->cidadao.idade, lista->primeiro->cidadao.nome, lista->primeiro->cidadao.cpf, lista->primeiro->cidadao.email);
-    // printf("\n%d %s %s %s", lista->ultimo->cidadao.idade, lista->ultimo->cidadao.nome, lista->ultimo->cidadao.cpf, lista->ultimo->cidadao.email);
+    fclose(fp);
+}
 
-    fclose(arquivo);
+void mergeSort(Cidadao *vetor, int inicio, int final)
+{
+    if (inicio == final)
+        return;
+
+    int metade = (inicio + final) / 2;
+    mergeSort(vetor, inicio, metade);
+    mergeSort(vetor, metade + 1, final);
+
+    int i, j, posicaoAuxiliar = 0;
+    int tamanhoAuxiliar = (final - inicio) + 1;
+    Cidadao *vetorAuxiliar = (Cidadao *)malloc(tamanhoAuxiliar * sizeof(Cidadao));
+
+    for (i = inicio, j = metade + 1; posicaoAuxiliar < tamanhoAuxiliar; posicaoAuxiliar++)
+    {
+        if (i > metade)
+        {
+            vetorAuxiliar[posicaoAuxiliar] = vetor[j];
+            j++;
+        }
+        else
+        {
+            if (j > final)
+            {
+                vetorAuxiliar[posicaoAuxiliar] = vetor[i];
+                i++;
+            }
+            else
+            {
+                if (vetor[i].idade < vetor[j].idade)
+                {
+                    vetorAuxiliar[posicaoAuxiliar] = vetor[i];
+                    i++;
+                }
+                else
+                {
+                    vetorAuxiliar[posicaoAuxiliar] = vetor[j];
+                    j++;
+                }
+            }
+        }
+    }
+
+    for (i = inicio, posicaoAuxiliar = 0; posicaoAuxiliar < tamanhoAuxiliar; posicaoAuxiliar++)
+    {
+        vetor[i] = vetorAuxiliar[posicaoAuxiliar];
+        i++;
+    }
+
+    free(vetorAuxiliar);
+}
+
+void ordenaLista(TipoLista *lista)
+{
+
+    Cidadao *vetorOrdenar = (Cidadao *)malloc(lista->quantidade * sizeof(Cidadao));
+    TipoMembroLista *atual;
+    int i;
+
+    printf("\t\t-> ORDENANDO O ARQUIVO PELO MÉTODO MERGE SORT, AGUARDE UM INSTANTE...\n\n");
+
+    atual = lista->primeiro;
+    for (i = 0; atual != NULL; i++)
+    {
+        vetorOrdenar[i] = atual->cidadao;
+        atual = atual->proximo;
+    }
+
+    mergeSort(vetorOrdenar, 0, lista->quantidade - 1);
+
+    atual = lista->primeiro;
+    for (i = 0; atual != NULL; i++)
+    {
+        atual->cidadao = vetorOrdenar[i];
+        atual = atual->proximo;
+    }
+
+    printf("O ARQUIVO FOI ORDENADO COM SUCESSO !!!\n\n");
+    system("pause");
+    system("cls");
+
+    free(vetorOrdenar);
 }
