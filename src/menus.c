@@ -1,0 +1,161 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include "../include/menus.h"
+#include "../include/ordenacao.h"
+#include "../include/vacinacao.h"
+
+void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados)
+{
+    int opcao = 0;
+
+    do
+    {
+        system("cls");
+        printf("\t<<< VacinaMe - Vacinação >>>\n\n");
+        printf("1) Vacinar - 1ª DOSE - IDADE\n");
+        printf("2) Vacinar - 2ª DOSE - IDADE\n");
+        printf("3) Vacinar - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("4) Vacinar - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("0) Sair.\n\n");
+
+        printf("---> OPÇÃO: ");
+        scanf("%d", &opcao);
+        system("cls");
+
+        switch (opcao)
+        {
+        case 1:
+            vacinarPrimeiraPessoa(filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+            break;
+        case 2:
+            vacinarPrimeiraPessoa(filaDeVacinacaoDose2, NULL, listaDeVacinados);
+            break;
+        case 3:
+            // TODO: Implementar vacinação de cidadaos de grupos prioritários - 1ª DOSE
+            break;
+        case 4:
+            // TODO: Implementar vacinação de cidadaos de grupos prioritários - 2ª DOSE
+            break;
+        default:
+            continue;
+        }
+
+        printf("\n\n");
+        system("pause");
+    } while (opcao != 0);
+}
+
+void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados)
+{
+    int opcao = 0;
+
+    do
+    {
+        system("cls");
+        printf("\t<<< VacinaMe - Exibição de Dados >>>\n\n");
+        printf("1) Exibir Lista de Espera\n");
+        printf("2) Exibir Fila de Vacinação - 1ª DOSE\n");
+        printf("3) Exibir Fila de Vacinação - 2ª DOSE\n");
+        printf("4) Exibir Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("5) Exibir Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("6) Exibir Lista de Imunizados\n");
+        printf("0) Sair.\n\n");
+
+        printf("---> OPÇÃO: ");
+        scanf("%d", &opcao);
+        system("cls");
+
+        switch (opcao)
+        {
+        case 1:
+            exibeLista(listaDeEspera);
+            break;
+        case 2:
+            exibeFila(filaDeVacinacao);
+            break;
+        case 3:
+            exibeFila(filaDeVacinacaoDose2);
+            break;
+        case 4:
+            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 1ª DOSE
+            break;
+        case 5:
+            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 2ª DOSE
+            break;
+        case 6:
+            exibeLista(listaDeVacinados);
+            break;
+        default:
+            continue;
+        }
+
+        printf("\n\n");
+        system("pause");
+    } while (opcao != 0);
+}
+
+void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados)
+{
+    int opcao = 0;
+
+    do
+    {
+        system("cls");
+        printf("\t<<< VacinaMe - Gerenciamento >>>\n\n");
+        printf("1) Gerar Fila de Vacinação - IDADE\n");
+        printf("2) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
+        printf("0) Sair.\n\n");
+
+        printf("---> OPÇÃO: ");
+        scanf("%d", &opcao);
+        system("cls");
+
+        switch (opcao)
+        {
+        case 1:
+            ordenaLista(listaDeEspera, filaDeVacinacao);
+            break;
+        case 2:
+            // TODO: Implementar ordenação tendo como critério os grupos prioritários
+            break;
+        default:
+            continue;
+        }
+
+    } while (opcao != 0);
+}
+
+void menu(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados)
+{
+    int opcao = 0;
+
+    do
+    {
+        system("cls");
+        printf("\t<<< VacinaMe - Gerenciador de Vacinação >>>\n\n");
+        printf("1) Menu de Exibição de Dados\n");
+        printf("2) Menu de Vacinação\n");
+        printf("3) Menu de Gerenciamento\n");
+        printf("0) Sair.\n\n");
+
+        printf("---> OPÇÃO: ");
+        scanf("%d", &opcao);
+        system("cls");
+
+        switch (opcao)
+        {
+        case 1:
+            menuExibicao(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+            break;
+        case 2:
+            menuVacinacao(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+            break;
+        case 3:
+            menuGerenciamento(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+            break;
+        default:
+            continue;
+        }
+
+    } while (opcao != 0);
+}

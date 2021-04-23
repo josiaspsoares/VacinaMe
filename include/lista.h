@@ -2,6 +2,7 @@
 
 #ifndef LISTA_DE_ESPERA_H
 #define LISTA_DE_ESPERA_H
+
 typedef struct MembroLista
 {
     Cidadao cidadao;
@@ -21,7 +22,5 @@ void exibeLista(TipoLista *listaDeEspera);
 void liberaLista(TipoLista *lista);
 int insereListaFinal(TipoLista *lista, Cidadao dadosCidadao);
 int removeListaFinal(TipoLista *lista);
-void lerDados(TipoLista *lista, char *filepath);
-void ordenaLista(TipoLista *lista);
 
 #endif
