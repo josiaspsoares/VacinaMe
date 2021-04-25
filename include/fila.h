@@ -21,9 +21,7 @@ TipoFila *iniciaFila();
 void liberaFila(TipoFila *fila);
 void insereNaFila(TipoFila *fila, Cidadao dadosCidadao);
 void removeDaFila(TipoFila *fila);
-void removeDaFila(TipoFila *fila);
 void exibeFila(TipoFila *Fila);
-void preencheFila(TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacao2, char *filepath);
 void exibeFilaDeVacinacao(TipoFila *fila);
 
 #endif
