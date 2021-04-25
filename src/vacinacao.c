@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../include/vacinacao.h"
 
-void vacinarPrimeiraPessoa(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
+void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
 {
     if (fila->primeiro == NULL)
     {
@@ -68,9 +68,6 @@ void vacinarPrimeiraPessoa(TipoFila *fila, TipoFila *filaDestino, TipoLista *lis
             insereListaFinal(listaDeVacinados, fila->primeiro->cidadao);
             removeDaFila(fila);
         }
-
-        system("pause");
-        system("cls");
 
     } while (op != 0);
 

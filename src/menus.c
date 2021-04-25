@@ -25,10 +25,10 @@ void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila
         switch (opcao)
         {
         case 1:
-            vacinarPrimeiraPessoa(filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+            vacinar(filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
             break;
         case 2:
-            vacinarPrimeiraPessoa(filaDeVacinacaoDose2, NULL, listaDeVacinados);
+            vacinar(filaDeVacinacaoDose2, NULL, listaDeVacinados);
             break;
         case 3:
             // TODO: Implementar vacinação de cidadaos de grupos prioritários - 1ª DOSE
@@ -102,8 +102,10 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
     {
         system("cls");
         printf("\t<<< VacinaMe - Gerenciamento >>>\n\n");
-        printf("1) Gerar Fila de Vacinação - IDADE\n");
-        printf("2) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
+        printf("1) Carregar Base de Dados\n");
+        printf("2) Gerar Fila de Vacinação - IDADE\n");
+        printf("3) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
+        printf("3) Restaurar Sistema\n");
         printf("0) Sair.\n\n");
 
         printf("---> OPÇÃO: ");
@@ -113,10 +115,16 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         switch (opcao)
         {
         case 1:
-            ordenaLista(listaDeEspera, filaDeVacinacao);
+            // TODO: Implementar carregamento de dados da base
             break;
         case 2:
+            ordenaLista(listaDeEspera, filaDeVacinacao);
+            break;
+        case 3:
             // TODO: Implementar ordenação tendo como critério os grupos prioritários
+            break;
+        case 4:
+            // TODO: Implementar restauração do sistema
             break;
         default:
             continue;
