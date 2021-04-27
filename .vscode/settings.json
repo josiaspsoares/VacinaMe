@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "string.h": "c",
+        "fila_de_vacinacao.h": "c",
+        "lista_de_espera.h": "c",
+        "stdlib.h": "c",
+        "cidadao.h": "c",
+        "vacinacao.h": "c",
+        "functional": "c"
+    }
+}
