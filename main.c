@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "include/fila_de_vacinacao.h"
 #include "include/lista_de_espera.h"
+#include "include/database.h"
 
 void procuraVacinados(TipoFila *fila, TipoLista *ListaDeVacinados);
 void removeDaFilaPraLista(TipoFila *fila, TipoLista *listaDeVacinados);
@@ -25,6 +26,11 @@ int main()
         printf("\nErro: Não foi possível alocar memória!\n");
         exit(1);
     }
+
+    MYSQL *conexao = obterConexao();
+    //inserirNovoCidadao(conexao, "Josias Soares", "aluno.josias.soares@doctum.edu.br", "51423612510", 19);
+    //atualizarStatusVacinacao(conexao, "51423612510", 1);
+    obterListaCidadaos(conexao);
 
     lerDados(listaDeEspera, "data/dados_cidadaos.txt");
     ordenaLista(listaDeEspera);
