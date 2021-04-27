@@ -3,9 +3,8 @@
 #include <locale.h>
 #include <windows.h>
 #include "include/vacinacao.h"
-#include "include/leitura.h"
 #include "include/menus.h"
-#include "database.h"
+#include "include/database.h"
 
 int main()
 {
@@ -24,11 +23,8 @@ int main()
     }
 
     MYSQL *conexao = obterConexao();
-    //inserirNovoCidadao(conexao, "Josias Soares", "aluno.josias.soares@doctum.edu.br", "51423612510", 19);
-    //atualizarStatusVacinacao(conexao, "51423612510", 1);
-    obterListaCidadaos(conexao);
-
-    lerDados(listaDeEspera, "data/dados_cidadaos.txt");
+    
+    obterListaCidadaos(conexao, listaDeEspera);
     menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
 
     liberaLista(listaDeEspera);

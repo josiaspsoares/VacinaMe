@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <C:\conectorC\include/mysql.h>
+#include "lista.h"
 
 #ifndef DATABASE_H
 #define DATABASE_H
@@ -10,6 +11,9 @@ void inserirNovoCidadao(MYSQL *conexao, char *nome, char *email, char *cpf, int 
 void atualizarStatusVacinacao(MYSQL *conexao, char *cpf, int status);
 void atualizarCodigoVacina(MYSQL *conexao, char *cpf, int codigo);
 void apagarDadosCidadao(MYSQL *conexao, char *cpf);
-void obterListaCidadaos(MYSQL *conexao);
+void obterListaCidadaos(MYSQL *conexao, TipoLista *lista);
+Cidadao obterDadosCidadao(MYSQL *conexao, char *cpf);
+void apagarTodosRegistros(MYSQL *conexao);
+void mockDados(MYSQL *conexao, char *filepath);
 
 #endif

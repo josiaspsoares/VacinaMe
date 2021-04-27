@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <winsock2.h>
+#include <string.h>
 #include <C:\conectorC\include/mysql.h>
+#include "credenciais/credenciais.h"
 #include "../include/database.h"
 
 void erro(MYSQL *conexao)
@@ -14,10 +16,10 @@ void erro(MYSQL *conexao)
 
 MYSQL *__stdcall obterConexao()
 {
-    char *servidor = "88.211.101.190";
-    char *usuario = "ivwundbr_vaciname";
-    char *senha = "rcAylIfCW8";
-    char *nomeBanco = "ivwundbr_vaciname";
+    char *servidor = SERVIDOR;
+    char *usuario = USUARIO;
+    char *senha = SENHA;
+    char *nomeBanco = NOME_BANCO;
 
     MYSQL *conexao = mysql_init(NULL);
 
@@ -49,7 +51,7 @@ void inserirNovoCidadao(MYSQL *conexao, char *nome, char *email, char *cpf, int 
     }
 }
 
-void obterListaCidadaos(MYSQL *conexao)
+void obterListaCidadaos(MYSQL *conexao, TipoLista *lista)
 {
     MYSQL_RES *resultado;
     MYSQL_ROW row;
@@ -65,14 +67,58 @@ void obterListaCidadaos(MYSQL *conexao)
         erro(conexao);
     }
 
+    Cidadao dadosCidadao;
+
     while ((row = mysql_fetch_row(resultado)) != NULL)
     {
-        printf("\nNome: %s\n", row[0]);
-        printf("E-mail: %s\n", row[1]);
-        printf("CPF: %s\n", row[2]);
+        strcpy(dadosCidadao.nome, row[0]);
+        strcpy(dadosCidadao.email, row[1]);
+        strcpy(dadosCidadao.cpf, row[2]);
+        dadosCidadao.idade = atoi(row[3]);
+        dadosCidadao.grupoPrioritario = atoi(row[4]);
+        dadosCidadao.statusVacinacao = atoi(row[5]);
+        dadosCidadao.codigoVacina = atoi(row[6]);
+        insereListaFinal(lista, dadosCidadao);
     }
 
     mysql_free_result(resultado);
+}
+
+Cidadao obterDadosCidadao(MYSQL *conexao, char* cpf)
+{
+    MYSQL_RES *resultado;
+    MYSQL_ROW row;
+
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE cpf = %s;", cpf);
+
+    if (mysql_query(conexao, query))
+    {
+        erro(conexao);
+    }
+
+    resultado = mysql_store_result(conexao);
+    if (resultado == NULL)
+    {
+        erro(conexao);
+    }
+
+    Cidadao dadosCidadao;
+
+    while ((row = mysql_fetch_row(resultado)) != NULL)
+    {
+        strcpy(dadosCidadao.nome, row[0]);
+        strcpy(dadosCidadao.email, row[1]);
+        strcpy(dadosCidadao.cpf, row[2]);
+        dadosCidadao.idade = atoi(row[3]);
+        dadosCidadao.grupoPrioritario = atoi(row[4]);
+        dadosCidadao.statusVacinacao = atoi(row[5]);
+        dadosCidadao.codigoVacina = atoi(row[6]);
+    }
+
+    mysql_free_result(resultado);
+
+    return dadosCidadao;
 }
 
 void atualizarStatusVacinacao(MYSQL *conexao, char *cpf, int status)
@@ -118,4 +164,35 @@ void apagarDadosCidadao(MYSQL *conexao, char *cpf)
     {
         printf("\nDados apagados com sucesso!\n");
     }
+}
+
+void apagarTodosRegistros(MYSQL *conexao) {
+    char query[100];
+    sprintf(query, "TRUNCATE TABLE dados_cidadaos;");
+
+    if (mysql_query(conexao, query))
+    {
+        erro(conexao);
+    }
+    else
+    {
+        printf("\nTodos os dados da tabela foram removidos!\n");
+    }
+}
+
+void mockDados(MYSQL *conexao, char *filepath)
+{
+    FILE *fp;
+    int idade, statusVacinacao, risco, codigoVacina;
+    char nome[100], cpf[12], email[100];
+    fp = fopen(filepath, "r");
+
+    while (!feof(fp))
+    {
+        fflush(stdin);
+        fscanf(fp, "%d %d %d %d %s %11s %99[^\n]", &risco, &statusVacinacao, &codigoVacina, &idade, email, cpf, nome);
+        inserirNovoCidadao(conexao, nome, email, cpf, idade);
+    }
+
+    fclose(fp);
 }

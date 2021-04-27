@@ -82,9 +82,9 @@
 0	0	0	33	edslaine.aguiar@gmail.com	11575670253	Victoria Luyza de Souza 
 0	0	0	93	duartelaryssa100@gmail.com	15196738876	Vitor Gabriel Silva Pires   
 0	0	0	74	priluzdasilva@gmail.com	27264381320	Ana Carolina da Silva Oliveira  
-0	0	0	79	cleomildespereira@gmail.com	88168749261	Arthur Vitor Miguel 
-0	0	0	100	sabrina76020101@gmail.com	69627777079	Brayan Wendew Marcos Vieira Neto    
-0	0	0	48	rayssa157@gmail.com	94940077233	Brenno Fábio do Carmo Ferreira                                                                                                                                                                                                          
+0	0	0	79	cleomildespereira@gmail.com	88168749261	Arthur Vitor Miguel
+0	0	0	100	sabrina76020101@gmail.com	69627777079	Brayan Wendew Marcos Vieira
+0	0	0	48	rayssa157@gmail.com	94940077233	Brenno Fábio do Carmo                                                                                                                                                                                                    
 0	0	0	94	esperancaflavia@gmail.com	35263715468	Carlos Eduardo da Silveira Araújo   
 0	0	0	104	israelaprestes2@gmail.com	27455785524	Davi de Paula Ramos Ferreira    
 0	0	0	82	francealmeida76@gmail.com	23278537346	Davi Luiz Barbosa Costa 
