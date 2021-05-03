@@ -3,14 +3,14 @@
 #include <string.h>
 #include "../include/vacinacao.h"
 
-void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
+void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados, MYSQL *conexao)
 {
     if (fila->primeiro == NULL)
     {
         printf("Fila vazia!\n");
         return;
     }
-    printf("Vacinando o cidadão %s. \n\n", fila->primeiro->cidadao.nome);
+    printf("\n<<< Vacinando o cidadão %s >>>\n\n", fila->primeiro->cidadao.nome);
     int opcao = 0;
 
     do
@@ -24,6 +24,7 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
             printf("3) JANSEN.\n"); /*unica que é somente uma dose*/
             printf("0) Sair.\n\n");
 
+            printf(" --> ");
             scanf("%d", &opcao);
 
             switch (opcao)
@@ -31,6 +32,8 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
             case 1:
                 fila->primeiro->cidadao.codigoVacina = 1;
                 fila->primeiro->cidadao.statusVacinacao = 1;
+                atualizarCodigoVacina(conexao, fila->primeiro->cidadao.cpf, 1);
+                atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 1);
                 insereNaFila(filaDestino, fila->primeiro->cidadao);
                 opcao = 0;
                 removeDaFila(fila);
@@ -38,6 +41,8 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
             case 2:
                 fila->primeiro->cidadao.codigoVacina = 2;
                 fila->primeiro->cidadao.statusVacinacao = 1;
+                atualizarCodigoVacina(conexao, fila->primeiro->cidadao.cpf, 2);
+                atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 1);
                 insereNaFila(filaDestino, fila->primeiro->cidadao);
                 opcao = 0;
                 removeDaFila(fila);
@@ -45,6 +50,8 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
             case 3:
                 fila->primeiro->cidadao.codigoVacina = 3;
                 fila->primeiro->cidadao.statusVacinacao = 2;
+                atualizarCodigoVacina(conexao, fila->primeiro->cidadao.cpf, 3);
+                atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 2);
                 insereListaFinal(listaDeVacinados, fila->primeiro->cidadao);
                 opcao = 0;
                 removeDaFila(fila);
@@ -64,6 +71,8 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados)
             {
                 printf("\nSegunda dose da Pfizer.\n\n");
             }
+
+            atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 2);
             insereListaFinal(listaDeVacinados, fila->primeiro->cidadao);
             removeDaFila(fila);
         }

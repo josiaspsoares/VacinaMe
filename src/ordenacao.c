@@ -32,7 +32,7 @@ void mergeSort(Cidadao *vetor, int inicio, int final)
             }
             else
             {
-                if (vetor[i].idade < vetor[j].idade)
+                if (vetor[i].idade > vetor[j].idade)
                 {
                     vetorAuxiliar[posicaoAuxiliar] = vetor[i];
                     i++;
@@ -62,7 +62,7 @@ void ordenaLista(TipoLista *lista, TipoFila *fila)
     TipoMembroLista *atual;
     int i;
 
-    printf("\t\t-> ORDENANDO O ARQUIVO PELO MÉTODO MERGE SORT, AGUARDE UM INSTANTE...\n\n");
+    printf("\t\t-> ORDENANDO LISTA DE ESPERA PELO MÉTODO MERGE SORT, AGUARDE UM INSTANTE...\n\n");
 
     atual = lista->primeiro;
     for (i = 0; atual != NULL; i++)
@@ -80,7 +80,7 @@ void ordenaLista(TipoLista *lista, TipoFila *fila)
         atual = atual->proximo;
     }
 
-    printf("O ARQUIVO FOI ORDENADO COM SUCESSO !!!\n\n");
+    printf("A LISTA FOI ORDENADO COM SUCESSO !!!\n\n");
     system("pause");
     system("cls");
 

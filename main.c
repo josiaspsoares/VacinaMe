@@ -23,14 +23,16 @@ int main()
     }
 
     MYSQL *conexao = obterConexao();
-    
-    obterListaCidadaos(conexao, listaDeEspera);
-    menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+
+    obterListaCidadaosPorIdadeEStatusDaVacinacao(conexao, listaDeEspera, 90);
+    menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
 
     liberaLista(listaDeEspera);
     liberaLista(listaDeVacinados);
     liberaFila(filaDeVacinacao);
     liberaFila(filaDeVacinacaoDose2);
+
+    mysql_close(conexao);
     return 0;
 }
 

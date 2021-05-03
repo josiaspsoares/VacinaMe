@@ -51,40 +51,7 @@ void inserirNovoCidadao(MYSQL *conexao, char *nome, char *email, char *cpf, int 
     }
 }
 
-void obterListaCidadaos(MYSQL *conexao, TipoLista *lista)
-{
-    MYSQL_RES *resultado;
-    MYSQL_ROW row;
-
-    if (mysql_query(conexao, "SELECT * FROM dados_cidadaos"))
-    {
-        erro(conexao);
-    }
-
-    resultado = mysql_store_result(conexao);
-    if (resultado == NULL)
-    {
-        erro(conexao);
-    }
-
-    Cidadao dadosCidadao;
-
-    while ((row = mysql_fetch_row(resultado)) != NULL)
-    {
-        strcpy(dadosCidadao.nome, row[0]);
-        strcpy(dadosCidadao.email, row[1]);
-        strcpy(dadosCidadao.cpf, row[2]);
-        dadosCidadao.idade = atoi(row[3]);
-        dadosCidadao.grupoPrioritario = atoi(row[4]);
-        dadosCidadao.statusVacinacao = atoi(row[5]);
-        dadosCidadao.codigoVacina = atoi(row[6]);
-        insereListaFinal(lista, dadosCidadao);
-    }
-
-    mysql_free_result(resultado);
-}
-
-Cidadao obterDadosCidadao(MYSQL *conexao, char* cpf)
+Cidadao obterDadosCidadao(MYSQL *conexao, char *cpf)
 {
     MYSQL_RES *resultado;
     MYSQL_ROW row;
@@ -121,6 +88,74 @@ Cidadao obterDadosCidadao(MYSQL *conexao, char* cpf)
     return dadosCidadao;
 }
 
+void obterLista(MYSQL *conexao, TipoLista *lista, char *query)
+{
+    MYSQL_RES *resultado;
+    MYSQL_ROW row;
+
+    if (mysql_query(conexao, query))
+    {
+        erro(conexao);
+    }
+
+    resultado = mysql_store_result(conexao);
+    if (resultado == NULL)
+    {
+        erro(conexao);
+    }
+
+    Cidadao dadosCidadao;
+
+    while ((row = mysql_fetch_row(resultado)) != NULL)
+    {
+        strcpy(dadosCidadao.nome, row[0]);
+        strcpy(dadosCidadao.email, row[1]);
+        strcpy(dadosCidadao.cpf, row[2]);
+        dadosCidadao.idade = atoi(row[3]);
+        dadosCidadao.grupoPrioritario = atoi(row[4]);
+        dadosCidadao.statusVacinacao = atoi(row[5]);
+        dadosCidadao.codigoVacina = atoi(row[6]);
+        insereListaFinal(lista, dadosCidadao);
+    }
+
+    mysql_free_result(resultado);
+}
+
+void obterListaCidadaos(MYSQL *conexao, TipoLista *lista)
+{
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos");
+    obterLista(conexao, lista, query);
+}
+
+void obterListaCidadaosPorIdade(MYSQL *conexao, TipoLista *lista, int idadeMinima)
+{
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE idade >= %d;", idadeMinima);
+    obterLista(conexao, lista, query);
+}
+
+void obterListaCidadaosPorGrupoPrioritario(MYSQL *conexao, TipoLista *lista, int grupoPrioritario)
+{
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE grupo_prioritario = %d;", grupoPrioritario);
+    obterLista(conexao, lista, query);
+}
+
+void obterListaCidadaosPorStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int statusVacinacao)
+{
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE status_vacinacao = %d;", statusVacinacao);
+    obterLista(conexao, lista, query);
+}
+
+void obterListaCidadaosPorIdadeEStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int idadeMinima)
+{
+    char query[100];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE idade >= %d AND status_vacinacao = 0 OR status_vacinacao = 1;", idadeMinima);
+    obterLista(conexao, lista, query);
+}
+
 void atualizarStatusVacinacao(MYSQL *conexao, char *cpf, int status)
 {
     char query[100];
@@ -132,7 +167,8 @@ void atualizarStatusVacinacao(MYSQL *conexao, char *cpf, int status)
     }
     else
     {
-        printf("\nDados atualizados com sucesso!\n");
+        if (status != 2)
+            printf("\nO cidadão precisará receber Segunda Dose!\n");
     }
 }
 
@@ -147,7 +183,7 @@ void atualizarCodigoVacina(MYSQL *conexao, char *cpf, int codigo)
     }
     else
     {
-        printf("\nDados atualizados com sucesso!\n");
+        printf("\nVacinação realizada com sucesso!\n");
     }
 }
 
@@ -166,7 +202,8 @@ void apagarDadosCidadao(MYSQL *conexao, char *cpf)
     }
 }
 
-void apagarTodosRegistros(MYSQL *conexao) {
+void apagarTodosRegistros(MYSQL *conexao)
+{
     char query[100];
     sprintf(query, "TRUNCATE TABLE dados_cidadaos;");
 
