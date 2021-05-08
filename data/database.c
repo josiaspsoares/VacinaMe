@@ -225,7 +225,6 @@ void mockDados(MYSQL *conexao, char *filepath)
 
     while (!feof(fp))
     {
-        fflush(stdin);
         fscanf(fp, "%d %d %d %d %s %11s %99[^\n]", &risco, &statusVacinacao, &codigoVacina, &idade, email, cpf, nome);
         inserirNovoCidadao(conexao, nome, email, cpf, idade);
     }
