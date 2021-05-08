@@ -34,6 +34,12 @@ void liberaLista(TipoLista *lista)
     }
 }
 
+void resetarLista(TipoLista *lista)
+{
+    liberaLista(lista);
+    lista = criaLista();
+}
+
 int listaVazia(TipoLista *lista)
 {
     if (lista == NULL)

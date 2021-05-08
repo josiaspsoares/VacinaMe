@@ -29,7 +29,6 @@ MYSQL *__stdcall obterConexao()
     }
     else
     {
-        printf("\nConexao realizada com sucesso!\n");
         return conexao;
     }
 
@@ -149,10 +148,10 @@ void obterListaCidadaosPorStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, in
     obterLista(conexao, lista, query);
 }
 
-void obterListaCidadaosPorIdadeEStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int idadeMinima)
+void obterListaCidadaosPorIdadeEStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int idadeMinima ,int statusVacinacao)
 {
     char query[100];
-    sprintf(query, "SELECT * FROM dados_cidadaos WHERE idade >= %d AND status_vacinacao = 0 OR status_vacinacao = 1;", idadeMinima);
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE idade >= %d AND status_vacinacao = %d;", idadeMinima, statusVacinacao);
     obterLista(conexao, lista, query);
 }
 

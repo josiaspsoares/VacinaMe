@@ -15,7 +15,7 @@ void obterListaCidadaos(MYSQL *conexao, TipoLista *lista);
 void obterListaCidadaosPorIdade(MYSQL *conexao, TipoLista *lista, int idadeMinima);
 void obterListaCidadaosPorGrupoPrioritario(MYSQL *conexao, TipoLista *lista, int grupoPrioritario);
 void obterListaCidadaosPorStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int statusVacinacao);
-void obterListaCidadaosPorIdadeEStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int idadeMinima);
+void obterListaCidadaosPorIdadeEStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int idadeMinima, int statusVacinacao);
 Cidadao obterDadosCidadao(MYSQL *conexao, char *cpf);
 void apagarTodosRegistros(MYSQL *conexao);
 void mockDados(MYSQL *conexao, char *filepath);

@@ -6,7 +6,6 @@
 #define VACINACAO_H
 
 void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados, MYSQL *conexao);
-void preencheFila(TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacao2, char *filepath);
 
 #endif
 

@@ -55,29 +55,35 @@ void mergeSort(Cidadao *vetor, int inicio, int final)
     free(vetorAuxiliar);
 }
 
-void ordenaLista(TipoLista *lista, TipoFila *fila)
+void ordenaLista(TipoLista *lista)
 {
+    int tamanho = lista->quantidade;
+
+    if (tamanho == 0)
+    {
+        printf("\t!!! LISTA VAZIA! NÃO HÁ DADOS PARA ORDENAR !!!\n\n");
+        system("pause");
+        system("cls");
+        return;
+    }
 
     Cidadao *vetorOrdenar = (Cidadao *)malloc(lista->quantidade * sizeof(Cidadao));
-    TipoMembroLista *atual;
+    TipoMembroLista *atual = lista->primeiro;
     int i;
 
-    printf("\t\t-> ORDENANDO LISTA DE ESPERA PELO MÉTODO MERGE SORT, AGUARDE UM INSTANTE...\n\n");
-
-    atual = lista->primeiro;
     for (i = 0; atual != NULL; i++)
     {
         vetorOrdenar[i] = atual->cidadao;
         atual = atual->proximo;
     }
 
+    printf("\t\t-> ORDENANDO LISTA PELO MÉTODO MERGE SORT, AGUARDE UM INSTANTE...\n\n");
     mergeSort(vetorOrdenar, 0, lista->quantidade - 1);
+    resetarLista(lista);
 
-    atual = lista->primeiro;
-    for (i = 0; atual != NULL; i++)
+    for (i = 0; i < tamanho; i++)
     {
-        insereNaFila(fila, vetorOrdenar[i]);
-        atual = atual->proximo;
+        insereListaFinal(lista, vetorOrdenar[i]);
     }
 
     printf("A LISTA FOI ORDENADO COM SUCESSO !!!\n\n");
@@ -85,4 +91,16 @@ void ordenaLista(TipoLista *lista, TipoFila *fila)
     system("cls");
 
     free(vetorOrdenar);
+}
+
+void converteListaParaFila(TipoLista *lista, TipoFila *fila)
+{
+    TipoMembroLista *atual = lista->primeiro;
+    resetarFila(fila);
+
+    while (atual != NULL)
+    {
+        insereNaFila(fila, atual->cidadao);
+        atual = atual->proximo;
+    }
 }

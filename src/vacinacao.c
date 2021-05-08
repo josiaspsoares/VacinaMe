@@ -19,9 +19,10 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
         {
             /* SE É 0 SE TRATA DA PRIMEIRA DOSE */
             printf("Qual vacina o cidadão vai tomar?\n\n");
-            printf("1) CORONAVAC.\n");
-            printf("2) PFIZER.\n");
-            printf("3) JANSEN.\n"); /*unica que é somente uma dose*/
+            printf("1) CORONAVAC (BUTANTAN/SINOVAC).\n");
+            printf("2) COVISHIELD (OXFORD/ASTRAZENECA).\n");
+            printf("3) PFIZER VACCINE (PFIZER/BIONTECH).\n");
+            printf("4) JANSSEN VACCINE (JANSSEN).\n"); /*unica que é somente uma dose*/
             printf("0) Sair.\n\n");
 
             printf(" --> ");
@@ -49,8 +50,17 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
                 break;
             case 3:
                 fila->primeiro->cidadao.codigoVacina = 3;
-                fila->primeiro->cidadao.statusVacinacao = 2;
+                fila->primeiro->cidadao.statusVacinacao = 1;
                 atualizarCodigoVacina(conexao, fila->primeiro->cidadao.cpf, 3);
+                atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 1);
+                insereNaFila(filaDestino, fila->primeiro->cidadao);
+                opcao = 0;
+                removeDaFila(fila);
+                break;
+            case 4:
+                fila->primeiro->cidadao.codigoVacina = 4;
+                fila->primeiro->cidadao.statusVacinacao = 2;
+                atualizarCodigoVacina(conexao, fila->primeiro->cidadao.cpf, 4);
                 atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 2);
                 insereListaFinal(listaDeVacinados, fila->primeiro->cidadao);
                 opcao = 0;
@@ -69,7 +79,11 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
             }
             if (fila->primeiro->cidadao.codigoVacina == 2)
             {
-                printf("\nSegunda dose da Pfizer.\n\n");
+                printf("\nSegunda dose da Covishield.\n\n");
+            }
+            if (fila->primeiro->cidadao.codigoVacina == 3)
+            {
+                printf("\nSegunda dose da Pfizer Vaccine.\n\n");
             }
 
             atualizarStatusVacinacao(conexao, fila->primeiro->cidadao.cpf, 2);
@@ -80,46 +94,4 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
     } while (opcao != 0);
 
     return;
-}
-
-void preencheFila(TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacao2, char *filepath)
-{
-    FILE *fp;
-    int idade, statusVacinacao, risco, codigoVacina;
-    int i = 0;
-    char nome[100], cpf[13], email[100];
-    Cidadao dadosCidadao;
-    fp = fopen(filepath, "r");
-
-    while (!feof(fp))
-    {
-        fflush(stdin);
-        fscanf(fp, "%d %d %d %d %s %11s %99[^\n]", &risco, &statusVacinacao, &codigoVacina, &idade, email, cpf, nome);
-        if (statusVacinacao == 0)
-        {
-            strcpy(dadosCidadao.email, email);
-            strcpy(dadosCidadao.cpf, cpf);
-            strcpy(dadosCidadao.nome, nome);
-            dadosCidadao.idade = idade;
-            dadosCidadao.statusVacinacao = statusVacinacao;  /* 0 não tomou vacina, 1 tomou uma dose, 2 está imunizado */
-            dadosCidadao.codigoVacina = codigoVacina;  /* 0 sem nenhum, 1 coronaVac, 2 Pfizer, 3 Jansen */
-            dadosCidadao.grupoPrioritario = risco; /* 0 sem risco, 1 com risco */
-            insereNaFila(filaDeVacinacao, dadosCidadao);
-        }
-
-        if (statusVacinacao == 1)
-        {
-            strcpy(dadosCidadao.email, email);
-            strcpy(dadosCidadao.cpf, cpf);
-            strcpy(dadosCidadao.nome, nome);
-            dadosCidadao.idade = idade;
-            dadosCidadao.statusVacinacao = statusVacinacao;  /* 0 não tomou vacina, 1 tomou uma dose, 2 está imunizado */
-            dadosCidadao.codigoVacina = codigoVacina;  /* 0 sem nenhum, 1 coronaVac, 2 Pfizer, 3 Jansen */
-            dadosCidadao.grupoPrioritario = risco; /* 0 sem risco, 1 com risco */
-            insereNaFila(filaDeVacinacao2, dadosCidadao);
-        }
-        i++;
-    }
-
-    fclose(fp);
 }

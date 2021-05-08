@@ -5,6 +5,7 @@
 #include "include/vacinacao.h"
 #include "include/menus.h"
 #include "include/database.h"
+#include "include/consulta.h"
 
 int main()
 {
@@ -23,8 +24,6 @@ int main()
     }
 
     MYSQL *conexao = obterConexao();
-
-    obterListaCidadaosPorIdadeEStatusDaVacinacao(conexao, listaDeEspera, 90);
     menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
 
     liberaLista(listaDeEspera);
