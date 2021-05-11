@@ -34,4 +34,3 @@ int main()
     mysql_close(conexao);
     return 0;
 }
-

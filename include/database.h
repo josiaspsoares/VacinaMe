@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <winsock2.h>
-#include <C:\conectorC\include/mysql.h>
+#include "../conectorC/include/mysql.h"
 #include "lista.h"
 
 #ifndef DATABASE_H

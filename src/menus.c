@@ -110,7 +110,7 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         printf("1) Carregar Base de Dados\n");
         printf("2) Gerar Fila de Vacinação - IDADE\n");
         printf("3) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
-        printf("3) Restaurar Sistema\n");
+        printf("4) Restaurar Sistema\n");
         printf("0) Sair.\n\n");
 
         printf("---> OPÇÃO: ");
@@ -120,7 +120,7 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         switch (opcao)
         {
         case 1:
-            // TODO: Implementar carregamento de dados da base
+            mockDados(conexao, "../data/dados_cidadaos.txt");
             break;
         case 2:
             consultarListaDeEsperaPorIdade(conexao, listaDeEspera);
@@ -136,7 +136,7 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
             // TODO: Implementar ordenação tendo como critério os grupos prioritários
             break;
         case 4:
-            // TODO: Implementar restauração do sistema
+            apagarTodosRegistros(conexao);
             break;
         default:
             continue;

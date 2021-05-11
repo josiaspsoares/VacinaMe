@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <string.h>
-#include <C:\conectorC\include/mysql.h>
+#include "../conectorC/include/mysql.h"
 #include "credenciais/credenciais.h"
 #include "../include/database.h"
 
