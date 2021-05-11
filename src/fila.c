@@ -36,6 +36,12 @@ void liberaFila(TipoFila *fila)
     }
 }
 
+void resetarFila(TipoFila *fila)
+{
+    liberaFila(fila);
+    fila = iniciaFila();
+}
+
 void insereNaFila(TipoFila *fila, Cidadao dadosCidadao)
 {
     TipoMembroFila *novoMembro = (TipoMembroFila *)malloc(sizeof(TipoMembroFila));
@@ -94,22 +100,11 @@ void exibeFila(TipoFila *Fila)
         printf("Fila vazia.\n");
     }
     TipoMembroFila *membroAuxiliar = Fila->primeiro;
+
+    printf(" IDADE \t\tNOME\t\t\t\t\t CPF\t\tEMAIL\n");
     while (membroAuxiliar != NULL)
     {
-        printf("\n%d %s %s %s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
+        printf("\n %-4d     %-45s  %-12s  %-45s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
         membroAuxiliar = membroAuxiliar->deTras;
-    }
-}
-
-void exibeFilaDeVacinacao(TipoFila *fila)
-{
-    TipoMembroFila *aux;
-
-    aux = fila->primeiro;
-
-    while (aux->deTras != NULL)
-    {
-        printf("\n%d %s %s %s", aux->cidadao.idade, aux->cidadao.nome, aux->cidadao.cpf, aux->cidadao.email);
-        aux = aux->deTras;
     }
 }

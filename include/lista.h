@@ -20,6 +20,7 @@ typedef struct Lista
 TipoLista *criaLista();
 void exibeLista(TipoLista *listaDeEspera);
 void liberaLista(TipoLista *lista);
+void resetarLista(TipoLista *lista);
 int insereListaFinal(TipoLista *lista, Cidadao dadosCidadao);
 int removeListaFinal(TipoLista *lista);
 

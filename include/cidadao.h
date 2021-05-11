@@ -7,8 +7,8 @@ typedef struct  {
     char cpf[12];
     int idade;
     int codigoVacina;
-    int pertenceGrupoDeRisco;
-    int statusVacina;
+    int grupoPrioritario;
+    int statusVacinacao;
 }Cidadao;
 
 #endif

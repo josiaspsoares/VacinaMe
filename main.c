@@ -3,8 +3,9 @@
 #include <locale.h>
 #include <windows.h>
 #include "include/vacinacao.h"
-#include "include/leitura.h"
 #include "include/menus.h"
+#include "include/database.h"
+#include "include/consulta.h"
 
 int main()
 {
@@ -22,13 +23,14 @@ int main()
         exit(1);
     }
 
-    lerDados(listaDeEspera, "data/dados_cidadaos.txt");
-    menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados);
+    MYSQL *conexao = obterConexao();
+    menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
 
     liberaLista(listaDeEspera);
     liberaLista(listaDeVacinados);
     liberaFila(filaDeVacinacao);
     liberaFila(filaDeVacinacaoDose2);
+
+    mysql_close(conexao);
     return 0;
 }
-

@@ -19,9 +19,9 @@ typedef struct Fila
 
 TipoFila *iniciaFila();
 void liberaFila(TipoFila *fila);
+void resetarFila(TipoFila *fila);
 void insereNaFila(TipoFila *fila, Cidadao dadosCidadao);
 void removeDaFila(TipoFila *fila);
 void exibeFila(TipoFila *Fila);
-void exibeFilaDeVacinacao(TipoFila *fila);
 
 #endif
