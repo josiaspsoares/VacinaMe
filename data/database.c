@@ -189,7 +189,7 @@ void atualizarCodigoVacina(MYSQL *conexao, char *cpf, int codigo)
 void apagarDadosCidadao(MYSQL *conexao, char *cpf)
 {
     char query[100];
-    sprintf(query, "DELETE FROM dados_cidadaos WHERE numero_conta = %s;", cpf);
+    sprintf(query, "DELETE FROM dados_cidadaos WHERE cpf = %s;", cpf);
 
     if (mysql_query(conexao, query))
     {

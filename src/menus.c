@@ -120,7 +120,7 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         switch (opcao)
         {
         case 1:
-            mockDados(conexao, "../data/dados_cidadaos.txt");
+            mockDados(conexao, "data/dados_cidadaos.txt");
             break;
         case 2:
             consultarListaDeEsperaPorIdade(conexao, listaDeEspera);

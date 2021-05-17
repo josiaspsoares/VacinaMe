@@ -6,6 +6,7 @@
         "stdlib.h": "c",
         "cidadao.h": "c",
         "vacinacao.h": "c",
-        "functional": "c"
+        "functional": "c",
+        "database.h": "c"
     }
 }
