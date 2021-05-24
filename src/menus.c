@@ -56,8 +56,8 @@ void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila 
         printf("\t<<< VacinaMe - Exibição de Dados >>>\n\n");
         printf("1) Lista de Espera - IDADE\n");
         printf("2) Lista de Espera - GRUPOS PRIORITÁRIOS\n");
-        printf("3) Fila de Vacinação - 1ª DOSE\n");
-        printf("4) Fila de Vacinação - 2ª DOSE\n");
+        printf("3) Fila de Vacinação - 1ª DOSE - IDADE\n");
+        printf("4) Fila de Vacinação - 2ª DOSE - IDADE\n");
         printf("5) Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
         printf("6) Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
         printf("7) Lista de Imunizados - IDADE\n");
@@ -120,8 +120,8 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         system("cls");
         printf("\t<<< VacinaMe - Gerenciamento >>>\n\n");
         printf("1) Carregar Base de Dados\n");
-        printf("2) Gerar Fila de Vacinação - 1ª DOSE\n");
-        printf("3) Gerar Fila de Vacinação - 2ª DOSE\n");
+        printf("2) Gerar Fila de Vacinação - 1ª DOSE - IDADE\n");
+        printf("3) Gerar Fila de Vacinação - 2ª DOSE - IDADE\n");
         printf("4) Gerar Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
         printf("5) Gerar Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
         printf("6) Restaurar Sistema\n");

@@ -37,6 +37,14 @@ void consultarListaDeEsperaPorPrioridade(MYSQL *conexao, TipoLista *lista)
     obterListaCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(conexao, lista, consultarGrupoPrioritario(), consultarIdadeMinima(), 0);
 }
 
+void consultarListaDeEsperaOrdenadaPorPrioridade(MYSQL *conexao, TipoLista *lista)
+{
+
+    printf("\t<<< VacinaMe - Lista de Espera por Grupo Prioritário >>>\n\n");
+    resetarLista(lista);
+    obterListaOrdenadaDeCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(conexao, lista, consultarGrupoPrioritario(), consultarIdadeMinima(), 0);
+}
+
 void consultarListaDeVacinadosComPrimeiraDosePorIdade(MYSQL *conexao, TipoLista *lista)
 {
 

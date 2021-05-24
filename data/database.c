@@ -148,6 +148,13 @@ void obterListaCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(MYSQL *conexao,
     obterLista(conexao, lista, query);
 }
 
+void obterListaOrdenadaDeCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(MYSQL *conexao, TipoLista *lista, int grupoPrioritario, int idadeMinima, int statusVacinacao)
+{
+    char query[120];
+    sprintf(query, "SELECT * FROM dados_cidadaos WHERE grupo_prioritario = %d AND idade >= %d AND status_vacinacao = %d ORDER BY idade DESC, nome ASC;", grupoPrioritario, idadeMinima, statusVacinacao);
+    obterLista(conexao, lista, query);
+}
+
 void obterListaCidadaosPorStatusDaVacinacao(MYSQL *conexao, TipoLista *lista, int statusVacinacao)
 {
     char query[100];
