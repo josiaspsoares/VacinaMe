@@ -101,7 +101,7 @@ void exibeFila(TipoFila *Fila)
     }
     TipoMembroFila *membroAuxiliar = Fila->primeiro;
 
-    printf(" IDADE \t\tNOME\t\t\t\t\t CPF\t\tEMAIL\n");
+    printf(" IDADE \tNOME\t\t\t\t\t\t CPF\t\tEMAIL\n");
     while (membroAuxiliar != NULL)
     {
         printf("\n %-4d     %-45s  %-12s  %-45s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
