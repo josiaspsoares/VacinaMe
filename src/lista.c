@@ -150,6 +150,12 @@ int removeListaFinal(TipoLista *lista)
 
 void exibeLista(TipoLista *lista)
 {
+    if (lista->quantidade == 0)
+    {
+        printf("\n\t!!! Não há nenhum cidadão com os critérios informados !!!\n");
+        return;
+    }
+
     TipoMembroLista *membroAuxiliar = lista->primeiro;
     printf(" IDADE\t  NOME\t\t\t\t\t\t CPF\t       EMAIL\n");
     while (membroAuxiliar != NULL)

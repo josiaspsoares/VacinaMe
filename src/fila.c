@@ -97,7 +97,8 @@ void exibeFila(TipoFila *Fila)
 {
     if (Fila->quantidade == 0)
     {
-        printf("Fila vazia.\n");
+        printf("\n\t!!! Não há nenhum cidadão nesta Fila !!!\n");
+        return;
     }
     TipoMembroFila *membroAuxiliar = Fila->primeiro;
 

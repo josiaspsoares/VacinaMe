@@ -120,9 +120,11 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         system("cls");
         printf("\t<<< VacinaMe - Gerenciamento >>>\n\n");
         printf("1) Carregar Base de Dados\n");
-        printf("2) Gerar Fila de Vacinação - IDADE\n");
-        printf("3) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
-        printf("4) Restaurar Sistema\n");
+        printf("2) Gerar Fila de Vacinação - 1ª DOSE\n");
+        printf("3) Gerar Fila de Vacinação - 2ª DOSE\n");
+        printf("4) Gerar Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("5) Gerar Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("6) Restaurar Sistema\n");
         printf("0) Sair.\n\n");
 
         printf("---> OPÇÃO: ");
@@ -139,15 +141,20 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
             system("cls");
             ordenaLista(listaDeEspera);
             converteListaParaFila(listaDeEspera, filaDeVacinacao);
+            break;
+        case 3:
             consultarListaDeVacinadosComPrimeiraDosePorIdade(conexao, listaDeEspera);
             system("cls");
             ordenaLista(listaDeEspera);
             converteListaParaFila(listaDeEspera, filaDeVacinacaoDose2);
             break;
-        case 3:
-            // TODO: Implementar ordenação tendo como critério os grupos prioritários
-            break;
         case 4:
+            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 1ª DOSE
+            break;
+        case 5:
+            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 2ª DOSE
+            break;
+        case 6:
             apagarTodosRegistros(conexao);
             break;
         default:

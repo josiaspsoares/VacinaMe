@@ -7,7 +7,7 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
 {
     if (fila->primeiro == NULL)
     {
-        printf("Fila vazia!\n");
+        printf("\n\t!!! Não há nenhum cidadão na Fila de Vacinação !!!\n");
         return;
     }
     printf("\n<<< Vacinando o cidadão %s >>>\n\n", fila->primeiro->cidadao.nome);
