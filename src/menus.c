@@ -54,12 +54,14 @@ void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila 
     {
         system("cls");
         printf("\t<<< VacinaMe - Exibição de Dados >>>\n\n");
-        printf("1) Lista de Espera\n");
-        printf("2) Fila de Vacinação - 1ª DOSE\n");
-        printf("3) Fila de Vacinação - 2ª DOSE\n");
-        printf("4) Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
-        printf("5) Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
-        printf("6) Lista de Imunizados\n");
+        printf("1) Lista de Espera - IDADE\n");
+        printf("2) Lista de Espera - GRUPOS PRIORITÁRIOS\n");
+        printf("3) Fila de Vacinação - 1ª DOSE - IDADE\n");
+        printf("4) Fila de Vacinação - 2ª DOSE - IDADE\n");
+        printf("5) Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("6) Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("7) Lista de Imunizados - IDADE\n");
+        printf("8) Lista de Imunizados - GRUPOS PRIORITÁRIOS\n");
         printf("0) Sair.\n\n");
 
         printf("---> OPÇÃO: ");
@@ -74,19 +76,29 @@ void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila 
             exibeLista(listaDeEspera);
             break;
         case 2:
-            exibeFila(filaDeVacinacao);
+            consultarListaDeEsperaPorPrioridade(conexao, listaDeEspera);
+            system("cls");
+            exibeLista(listaDeEspera);
             break;
         case 3:
-            exibeFila(filaDeVacinacaoDose2);
+            exibeFila(filaDeVacinacao);
             break;
         case 4:
-            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 1ª DOSE
+            exibeFila(filaDeVacinacaoDose2);
             break;
         case 5:
-            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 2ª DOSE
+            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 1ª DOSE
             break;
         case 6:
+            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 2ª DOSE
+            break;
+        case 7:
             consultarListaDeVacinadosPorIdade(conexao, listaDeVacinados);
+            system("cls");
+            exibeLista(listaDeVacinados);
+            break;
+        case 8:
+            consultarListaDeVacinadosPorPrioridade(conexao, listaDeVacinados);
             system("cls");
             exibeLista(listaDeVacinados);
             break;
@@ -107,10 +119,10 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
     {
         system("cls");
         printf("\t<<< VacinaMe - Gerenciamento >>>\n\n");
-        printf("1) Carregar Base de Dados\n");
-        printf("2) Gerar Fila de Vacinação - IDADE\n");
-        printf("3) Gerar Fila de Vacinação - GRUPOS PRIORITÁRIOS\n");
-        printf("4) Restaurar Sistema\n");
+        printf("1) Gerar Fila de Vacinação - 1ª DOSE - IDADE\n");
+        printf("2) Gerar Fila de Vacinação - 2ª DOSE - IDADE\n");
+        printf("3) Gerar Fila de Vacinação - 1ª DOSE - GRUPOS PRIORITÁRIOS\n");
+        printf("4) Gerar Fila de Vacinação - 2ª DOSE - GRUPOS PRIORITÁRIOS\n");
         printf("0) Sair.\n\n");
 
         printf("---> OPÇÃO: ");
@@ -120,23 +132,22 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
         switch (opcao)
         {
         case 1:
-            mockDados(conexao, "data/dados_cidadaos.txt");
-            break;
-        case 2:
             consultarListaDeEsperaPorIdade(conexao, listaDeEspera);
             system("cls");
             ordenaLista(listaDeEspera);
             converteListaParaFila(listaDeEspera, filaDeVacinacao);
+            break;
+        case 2:
             consultarListaDeVacinadosComPrimeiraDosePorIdade(conexao, listaDeEspera);
             system("cls");
             ordenaLista(listaDeEspera);
             converteListaParaFila(listaDeEspera, filaDeVacinacaoDose2);
             break;
         case 3:
-            // TODO: Implementar ordenação tendo como critério os grupos prioritários
+            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 1ª DOSE
             break;
         case 4:
-            apagarTodosRegistros(conexao);
+            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 2ª DOSE
             break;
         default:
             continue;

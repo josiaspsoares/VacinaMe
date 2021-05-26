@@ -12,12 +12,37 @@ int consultarIdadeMinima() {
     return idadeMinima;
 }
 
+int consultarGrupoPrioritario() {
+    int codigoGrupoPrioritario;
+
+    printf(" -> Informe o código do Grupo Prioritário: ");
+    scanf("%d", &codigoGrupoPrioritario);
+
+    return codigoGrupoPrioritario;
+}
+
 void consultarListaDeEsperaPorIdade(MYSQL *conexao, TipoLista *lista)
 {
 
-    printf("\t<<< VacinaMe - Consulta de Lista de Espera >>>\n\n");
+    printf("\t<<< VacinaMe - Lista de Espera por Idade >>>\n\n");
     resetarLista(lista);
     obterListaCidadaosPorIdadeEStatusDaVacinacao(conexao, lista, consultarIdadeMinima(), 0);
+}
+
+void consultarListaDeEsperaPorPrioridade(MYSQL *conexao, TipoLista *lista)
+{
+
+    printf("\t<<< VacinaMe - Lista de Espera por Grupo Prioritário >>>\n\n");
+    resetarLista(lista);
+    obterListaCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(conexao, lista, consultarGrupoPrioritario(), consultarIdadeMinima(), 0);
+}
+
+void consultarListaDeEsperaOrdenadaPorPrioridade(MYSQL *conexao, TipoLista *lista)
+{
+
+    printf("\t<<< VacinaMe - Lista de Espera por Grupo Prioritário >>>\n\n");
+    resetarLista(lista);
+    obterListaOrdenadaDeCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(conexao, lista, consultarGrupoPrioritario(), consultarIdadeMinima(), 0);
 }
 
 void consultarListaDeVacinadosComPrimeiraDosePorIdade(MYSQL *conexao, TipoLista *lista)
@@ -31,7 +56,15 @@ void consultarListaDeVacinadosComPrimeiraDosePorIdade(MYSQL *conexao, TipoLista 
 void consultarListaDeVacinadosPorIdade(MYSQL *conexao, TipoLista *lista)
 {
 
-    printf("\t<<< VacinaMe - Consulta de Vacinados >>>\n\n");
+    printf("\t<<< VacinaMe - Consulta de Vacinados por Idade>>>\n\n");
     resetarLista(lista);
     obterListaCidadaosPorIdadeEStatusDaVacinacao(conexao, lista, consultarIdadeMinima(), 2);
+}
+
+void consultarListaDeVacinadosPorPrioridade(MYSQL *conexao, TipoLista *lista)
+{
+
+    printf("\t<<< VacinaMe - Consulta de Vacinados por Grupo Prioritário >>>\n\n");
+    resetarLista(lista);
+    obterListaCidadaosPorGrupoPrioritarioStatusDaVacinacaoIdade(conexao, lista, consultarGrupoPrioritario(), consultarIdadeMinima(), 2);
 }
