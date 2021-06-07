@@ -16,6 +16,8 @@ int main()
     TipoFila *filaDeVacinacao = iniciaFila();
     TipoFila *filaDeVacinacaoDose2 = iniciaFila();
     TipoLista *listaDeVacinados = criaLista();
+    TipoLista *listaPrioridade = criaLista();
+    TipoFila *filaPrioridade = iniciaFila();
 
     if (listaDeEspera == NULL || filaDeVacinacao == NULL)
     {
@@ -24,12 +26,14 @@ int main()
     }
 
     MYSQL *conexao = obterConexao();
-    menu(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
+    menu(listaDeEspera, filaPrioridade, listaPrioridade, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
 
     liberaLista(listaDeEspera);
     liberaLista(listaDeVacinados);
+    liberaLista(listaPrioridade);
     liberaFila(filaDeVacinacao);
     liberaFila(filaDeVacinacaoDose2);
+    liberaFila(filaPrioridade);
 
     mysql_close(conexao);
     return 0;
