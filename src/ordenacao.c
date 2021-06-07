@@ -61,7 +61,7 @@ void ordenaLista(TipoLista *lista)
 
     if (tamanho == 0)
     {
-        printf("\t!!! LISTA VAZIA! NÃO HÁ DADOS PARA ORDENAR !!!\n\n");
+        printf("\t!!! Lista Vazia! Não há dados para ordenar !!!\n\n");
         system("pause");
         system("cls");
         return;
@@ -86,7 +86,7 @@ void ordenaLista(TipoLista *lista)
         insereListaFinal(lista, vetorOrdenar[i]);
     }
 
-    printf("A LISTA FOI ORDENADO COM SUCESSO !!!\n\n");
+    printf(" A FILA DE VACINAÇÃO FOI GERADA COM SUCESSO !!!\n\n");
     system("pause");
     system("cls");
 
