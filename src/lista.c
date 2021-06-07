@@ -167,7 +167,9 @@ void exibeLista(TipoLista *lista)
 
 void criarListaPrioridade(TipoLista *lista, TipoLista *listaAux)
 {
+    resetarLista(listaAux);
     TipoMembroLista *membroAuxiliar = lista->primeiro;
+
     while (membroAuxiliar != NULL)
     {
         if (membroAuxiliar->cidadao.grupoPrioritario == 1)
