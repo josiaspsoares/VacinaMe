@@ -44,10 +44,6 @@ void inserirNovoCidadao(MYSQL *conexao, char *nome, char *email, char *cpf, int 
     {
         erro(conexao);
     }
-    else
-    {
-        printf("\nDados inseridos com sucesso!\n");
-    }
 }
 
 Cidadao obterDadosCidadao(MYSQL *conexao, char *cpf)
@@ -178,11 +174,6 @@ void atualizarStatusVacinacao(MYSQL *conexao, char *cpf, int status)
     {
         erro(conexao);
     }
-    else
-    {
-        if (status != 2)
-            printf("\nO cidadão precisará receber Segunda Dose!\n");
-    }
 }
 
 void atualizarCodigoVacina(MYSQL *conexao, char *cpf, int codigo)
@@ -193,10 +184,6 @@ void atualizarCodigoVacina(MYSQL *conexao, char *cpf, int codigo)
     if (mysql_query(conexao, query))
     {
         erro(conexao);
-    }
-    else
-    {
-        printf("\nVacinação realizada com sucesso!\n");
     }
 }
 

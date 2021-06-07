@@ -23,5 +23,6 @@ void liberaLista(TipoLista *lista);
 void resetarLista(TipoLista *lista);
 int insereListaFinal(TipoLista *lista, Cidadao dadosCidadao);
 int removeListaFinal(TipoLista *lista);
+void criarListaPrioridade(TipoLista *lista, TipoLista *listaAux);
 
 #endif
