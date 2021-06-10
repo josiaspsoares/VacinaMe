@@ -100,12 +100,33 @@ void exibeFila(TipoFila *Fila)
         printf("\n\t!!! Não há nenhum cidadão nesta Fila !!!\n");
         return;
     }
-    TipoMembroFila *membroAuxiliar = Fila->primeiro;
 
-    printf(" IDADE\t  NOME\t\t\t\t\t\t CPF\t       EMAIL\n");
+    TipoMembroFila *membroAuxiliar = Fila->primeiro;
+    char nomeVacina[14];
+
+    printf(" IDADE\t  NOME\t\t\t\t\t\t CPF\t       EMAIL\t\t\t      VACINA\n");
     while (membroAuxiliar != NULL)
     {
-        printf("\n %-4d     %-45s  %-12s  %-45s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email);
+        switch (membroAuxiliar->cidadao.codigoVacina)
+        {
+        case 1:
+            strcpy(nomeVacina, "Coronavac");
+            break;
+        case 2:
+            strcpy(nomeVacina, "Covishield");
+            break;
+        case 3:
+            strcpy(nomeVacina, "Pfizer");
+            break;
+        case 4:
+            strcpy(nomeVacina, "Janssen");
+            break;
+        default:
+            strcpy(nomeVacina, "Não Vacinado");
+            break;
+        }
+
+        printf("\n %-4d     %-45s  %-12s  %-30s %-14s", membroAuxiliar->cidadao.idade, membroAuxiliar->cidadao.nome, membroAuxiliar->cidadao.cpf, membroAuxiliar->cidadao.email, nomeVacina);
         membroAuxiliar = membroAuxiliar->deTras;
     }
 }
