@@ -11,11 +11,24 @@ void vacinar(TipoFila *fila, TipoFila *filaDestino, TipoLista *listaDeVacinados,
         return;
     }
 
+    char grupoPrioritario[13];
+    switch (fila->primeiro->cidadao.grupoPrioritario)
+    {
+    case 1:
+        strcpy(grupoPrioritario, "Comorbidades");
+        break;
+
+    default:
+        strcpy(grupoPrioritario, "Não Consta");
+        break;
+    }
+
     printf("\t<<< VacinaMe - Vacinação >>>\n\n");
     printf(" > Cidadão: %s\n", fila->primeiro->cidadao.nome);
     printf(" > CPF: %s\n", fila->primeiro->cidadao.cpf);
-    printf(" > Idade: %d\n", fila->primeiro->cidadao.idade);
-    printf(" > Grupo Prioritário: %d\n\n", fila->primeiro->cidadao.grupoPrioritario);
+    printf(" > Email: %s\n", fila->primeiro->cidadao.email);
+    printf(" > Grupo: %s\n", grupoPrioritario);
+    printf(" > Idade: %d\n\n", fila->primeiro->cidadao.idade);
 
     int opcao = 0;
 

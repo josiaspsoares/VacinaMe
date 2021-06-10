@@ -32,7 +32,7 @@ void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaPrioridade, TipoFila 
             vacinar(filaDeVacinacaoDose2, NULL, listaDeVacinados, conexao);
             break;
         case 3:
-            vacinar(filaPrioridade, filaDeVacinacaoDose2, listaDeVacinados, conexao);
+            vacinar(filaPrioridade, filaPrioridadeDose2, listaDeVacinados, conexao);
             break;
         case 4:
             vacinar(filaPrioridadeDose2, NULL, listaDeVacinados, conexao);
