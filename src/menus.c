@@ -5,7 +5,7 @@
 #include "../include/vacinacao.h"
 #include "../include/consulta.h"
 
-void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
+void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaPrioridade, TipoFila *filaPrioridadeDose2, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
 {
     int opcao = 0;
 
@@ -32,10 +32,10 @@ void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila
             vacinar(filaDeVacinacaoDose2, NULL, listaDeVacinados, conexao);
             break;
         case 3:
-            // TODO: Implementar vacinação de cidadaos de grupos prioritários - 1ª DOSE
+            vacinar(filaPrioridade, filaDeVacinacaoDose2, listaDeVacinados, conexao);
             break;
         case 4:
-            // TODO: Implementar vacinação de cidadaos de grupos prioritários - 2ª DOSE
+            vacinar(filaPrioridadeDose2, NULL, listaDeVacinados, conexao);
             break;
         default:
             continue;
@@ -46,7 +46,7 @@ void menuVacinacao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila
     } while (opcao != 0);
 }
 
-void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
+void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaPrioridade, TipoFila *filaPrioridadeDose2, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
 {
     int opcao = 0;
 
@@ -87,10 +87,10 @@ void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila 
             exibeFila(filaDeVacinacaoDose2);
             break;
         case 5:
-            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 1ª DOSE
+            exibeFila(filaPrioridade);
             break;
         case 6:
-            // TODO: Implementar exibição de cidadaos de grupos prioritários vacinados - 2ª DOSE
+            exibeFila(filaPrioridadeDose2);
             break;
         case 7:
             consultarListaDeVacinadosPorIdade(conexao, listaDeVacinados);
@@ -111,7 +111,7 @@ void menuExibicao(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila 
     } while (opcao != 0);
 }
 
-void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
+void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaPrioridade, TipoFila *filaPrioridadeDose2, TipoLista *listaPrioridade, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
 {
     int opcao = 0;
 
@@ -144,10 +144,18 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
             converteListaParaFila(listaDeEspera, filaDeVacinacaoDose2);
             break;
         case 3:
-            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 1ª DOSE
+            consultarListaDeEsperaPorIdade(conexao, listaDeEspera);
+            system("cls");
+            criarListaPrioridade(listaDeEspera, listaPrioridade);
+            ordenaLista(listaPrioridade);
+            converteListaParaFila(listaPrioridade, filaPrioridade);
             break;
         case 4:
-            // TODO: Implementar ordenação tendo como critério os grupos prioritários - 2ª DOSE
+            consultarListaDeVacinadosComPrimeiraDosePorIdade(conexao, listaDeEspera);
+            system("cls");
+            criarListaPrioridade(listaDeEspera, listaPrioridade);
+            ordenaLista(listaPrioridade);
+            converteListaParaFila(listaPrioridade, filaPrioridadeDose2);
             break;
         default:
             continue;
@@ -156,7 +164,7 @@ void menuGerenciamento(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, Tipo
     } while (opcao != 0);
 }
 
-void menu(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
+void menu(TipoLista *listaDeEspera, TipoFila *filaPrioridade, TipoFila *filaPrioridadeDose2, TipoLista *listaPrioridade, TipoFila *filaDeVacinacao, TipoFila *filaDeVacinacaoDose2, TipoLista *listaDeVacinados, MYSQL *conexao)
 {
     int opcao = 0;
 
@@ -176,13 +184,13 @@ void menu(TipoLista *listaDeEspera, TipoFila *filaDeVacinacao, TipoFila *filaDeV
         switch (opcao)
         {
         case 1:
-            menuExibicao(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
+            menuExibicao(listaDeEspera, filaPrioridade, filaPrioridadeDose2, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
             break;
         case 2:
-            menuVacinacao(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
+            menuVacinacao(listaDeEspera, filaPrioridade, filaPrioridadeDose2, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
             break;
         case 3:
-            menuGerenciamento(listaDeEspera, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
+            menuGerenciamento(listaDeEspera, filaPrioridade, filaPrioridadeDose2, listaPrioridade, filaDeVacinacao, filaDeVacinacaoDose2, listaDeVacinados, conexao);
             break;
         default:
             continue;
